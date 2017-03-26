@@ -20,8 +20,6 @@ if (Meteor.isServer) {
 Meteor.methods({
   'tasks.insert'(text) {
     check(text, String);
- 
-    // Make sure the user is logged in before inserting a task
     if (! Meteor.userId()) {
       throw new Meteor.Error('not-authorized');
     }
@@ -38,7 +36,6 @@ Meteor.methods({
 
     const task = Tasks.findOne(taskId);
     if (task.private && task.owner !== Meteor.userId()) {
-      // If the task is private, make sure only the owner can delete it
       throw new Meteor.Error('not-authorized');
     }
  
@@ -50,7 +47,6 @@ Meteor.methods({
 
     const task = Tasks.findOne(taskId);
     if (task.private && task.owner !== Meteor.userId()) {
-      // If the task is private, make sure only the owner can check it off
       throw new Meteor.Error('not-authorized');
     }
  
@@ -61,8 +57,6 @@ Meteor.methods({
     check(setToPrivate, Boolean);
  
     const task = Tasks.findOne(taskId);
- 
-    // Make sure only the task owner can make a task private
     if (task.owner !== Meteor.userId()) {
       throw new Meteor.Error('not-authorized');
     }

@@ -6,7 +6,6 @@ import { Tasks } from '../api/tasks.js';
 import Task from './Task.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
-// App component - represents the whole app
 class App extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +17,6 @@ class App extends Component {
   handleSubmit(event) {
     event.preventDefault();
  
-    // Find the text field via the React ref
     const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
     Meteor.call('tasks.insert', text);
  
